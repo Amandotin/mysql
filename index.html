@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<title>MySQL Quest | Class XII IT (802)</title>
+<style>
+:root{--bg:#090f1f;--panel:#121d34;--panel2:#192744;--line:#2b3b5d;--text:#f4f7ff;--muted:#aab8d5;--cyan:#5ee7ed;--purple:#b69cff;--lime:#baf477;--gold:#ffd166;--red:#ff8492}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 8% 0%,#26345c 0,transparent 35%),radial-gradient(ellipse at 95% 10%,#332552 0,transparent 28%),var(--bg);color:var(--text);font:16px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit}.shell{width:min(1160px,93%);margin:auto;padding:28px 0 55px}
+.hero{position:relative;overflow:hidden;border:1px solid #4a5d86;border-radius:28px;padding:clamp(22px,4vw,38px);background:linear-gradient(125deg,#1c3154,#18213e 58%,#38285a);box-shadow:0 24px 70px #0005}
+.hero:after{content:"SELECT *";position:absolute;right:-12px;bottom:-35px;font:900 clamp(55px,10vw,125px)/1 ui-monospace,monospace;color:#fff0; -webkit-text-stroke:1px #ffffff12;pointer-events:none;transform:rotate(-7deg)}
+.eyebrow{font-size:.76rem;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:900}.hero h1{font-size:clamp(2.4rem,6vw,4.5rem);line-height:.98;letter-spacing:-2px;margin:12px 0}.hero p{color:#d7e0f6;max-width:680px;margin:0}.hero-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.chip{font-size:.8rem;border:1px solid #7182a8;background:#ffffff0c;padding:6px 11px;border-radius:99px}
+.hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.stat{background:#080f20aa;border:1px solid #526487;border-radius:14px;padding:10px 15px;min-width:105px}.stat strong{display:block;font-size:1.25rem;color:var(--lime)}.stat span{font-size:.75rem;color:var(--muted)}
+.panel{margin-top:18px;background:#101a2e;border:1px solid var(--line);border-radius:19px;padding:16px}
+.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.panel h2{font-size:1rem;margin:0}.level-tabs,.topic-tabs,.tools{display:flex;gap:8px;flex-wrap:wrap}.tab,.tool{border:1px solid var(--line);border-radius:11px;padding:9px 13px;background:#17243d;color:var(--text);font-weight:800;cursor:pointer;transition:.16s}.tab:hover,.tool:hover{border-color:var(--cyan);transform:translateY(-1px)}.tab.active{color:#101629;background:var(--cyan);border-color:var(--cyan)}.tab[data-level="easy"].active{background:var(--lime);border-color:var(--lime)}.tab[data-level="medium"].active{background:var(--gold);border-color:var(--gold)}.tab[data-level="hard"].active{background:var(--purple);border-color:var(--purple)}
+.topic-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}.topic-row label{font-size:.8rem;color:var(--muted);font-weight:800}.topic{background:transparent;border:1px solid #344565;color:#d7e1f7;border-radius:99px;padding:6px 10px;font-size:.78rem;cursor:pointer}.topic.active{background:#293b5f;border-color:var(--cyan);color:var(--cyan)}
+.controls{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin:17px 0}.progress-wrap{display:flex;gap:12px;align-items:center;flex:1;min-width:210px;color:var(--muted);font-size:.85rem}.bar{height:9px;min-width:80px;flex:1;background:#24314d;border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--lime));transition:width .2s}.tool.primary{background:var(--purple);border-color:var(--purple);color:#1c1231}.tool.green{background:#243e34;border-color:#587c5e;color:var(--lime)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:linear-gradient(155deg,#17243d,#101a2e);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0;box-shadow:0 9px 28px #0002;transition:border-color .18s,transform .18s}.card:hover{border-color:#536b98;transform:translateY(-2px)}.card-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.qnum{font-size:.76rem;letter-spacing:1px;font-weight:900;color:var(--cyan)}.badges{display:flex;gap:6px;flex-wrap:wrap}.badge{font-size:.68rem;padding:4px 8px;border-radius:99px;border:1px solid #58698a;color:#dce7ff}.badge.easy{color:var(--lime);border-color:#567c48;background:#baf47712}.badge.medium{color:var(--gold);border-color:#806c39;background:#ffd16612}.badge.hard{color:#d1bcff;border-color:#6d589e;background:#b69cff12}.question{font-size:1.02rem;font-weight:800;margin:0 0 13px}.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.opt{display:flex;align-items:flex-start;gap:8px;text-align:left;border:1px solid #30415f;background:#1b2a46;color:#e3eaf9;border-radius:11px;padding:9px 10px;cursor:pointer;font-size:.87rem;min-width:0}.opt:hover{border-color:#8ca2cc}.opt .letter{font-weight:900;color:var(--gold);flex:none}.opt.selected{border-color:var(--cyan);background:#1d4350}.opt.correct{border-color:#77b95c;background:#223d32}.opt.wrong{border-color:#c65c6c;background:#452630}.card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.mini{border:1px solid #50658b;background:#263858;color:#fff;padding:8px 11px;border-radius:10px;font-weight:800;font-size:.82rem;cursor:pointer}.mini.reveal{background:#243c36;border-color:#5c8a68;color:var(--lime)}.mini:disabled{opacity:.45;cursor:not-allowed}.feedback{display:none;margin-top:12px;padding:12px;border-radius:12px;background:#0b1426;border:1px solid #344766}.feedback.show{display:block;animation:rise .18s ease-out}.answerline{font-weight:900;color:var(--lime)}.explain{font-size:.88rem;color:#d4def1;margin-top:5px}.sql{display:block;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px;padding:10px;background:#070d19;border:1px solid #2c3d5b;border-radius:9px;color:#9ff0e9;font: .84rem/1.45 ui-monospace,Consolas,monospace}
+@keyframes rise{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.no-results{display:none;text-align:center;padding:35px;color:var(--muted);border:1px dashed var(--line);border-radius:15px}.foot{margin-top:30px;border-top:1px solid var(--line);padding-top:17px;color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.foot a{color:var(--cyan)}
+@media(max-width:720px){.cards{grid-template-columns:1fr}.hero:after{font-size:60px}.panel{padding:13px}}
+@media(max-width:440px){.opts{grid-template-columns:1fr}.tool{flex:1}.controls{align-items:stretch}.progress-wrap{width:100%}}
+@media print{body{background:white;color:#111}.hero,.panel,.card{background:white;color:#111;box-shadow:none;border:1px solid #aaa}.hero p,.opt,.explain,.foot{color:#222}.controls,.level-tabs,.topic-row,.card-actions{display:none}.feedback{display:block!important}.cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="hero">
+ <div class="eyebrow">Classroom game • CBSE Class XII • IT (802)</div>
+ <h1>MYSQL<br>QUEST <span style="color:#5ee7ed">⚡</span></h1>
+ <p>Choose your difficulty, pick an answer, challenge your classmates, and reveal the explanation. From first SELECT to multi-table queries — earn points as you level up.</p>
+ <div class="hero-meta"><span class="chip">🧑‍💻 Learn by doing</span><span class="chip">🎮 3 difficulty levels</span><span class="chip">🗃️ SQL practice</span><span class="chip">📱 Mobile friendly</span></div>
+ <div class="hero-stats">
+  <div class="stat"><strong id="totalStat">36</strong><span>Questions</span></div>
+  <div class="stat"><strong>3</strong><span>Levels</span></div>
+  <div class="stat"><strong id="scoreStat">0</strong><span>Points earned</span></div>
+  <div class="stat"><strong id="doneStat">0</strong><span>Answered</span></div>
+ </div>
+</header>
+
+<section class="panel">
+ <div class="panel-head"><h2>🎚️ Choose your level</h2><div class="level-tabs">
+  <button class="tab active" data-level="easy">🟢 Easy</button>
+  <button class="tab" data-level="medium">🟡 Medium</button>
+  <button class="tab" data-level="hard">🟣 Hard</button>
+  <button class="tab" data-level="all">All levels</button>
+ </div></div>
+ <div class="topic-row"><label>FILTER BY TOPIC</label><div class="topic-tabs">
+  <button class="topic active" data-topic="all">All topics</button>
+  <button class="topic" data-topic="basics">SQL basics</button>
+  <button class="topic" data-topic="ddl">DDL & tables</button>
+  <button class="topic" data-topic="dml">DML & queries</button>
+  <button class="topic" data-topic="group">Functions & grouping</button>
+  <button class="topic" data-topic="multi">Multiple tables</button>
+ </div></div>
+</section>
+
+<div class="controls">
+ <div class="progress-wrap"><strong id="progressText">0 / 12 answered</strong><div class="bar"><i id="progressBar"></i></div></div>
+ <div class="tools"><button class="tool primary" id="revealVisible">👀 Reveal visible</button><button class="tool" id="hideVisible">🙈 Hide answers</button><button class="tool green" id="shuffle">🔀 Shuffle</button><button class="tool" id="reset">↻ Reset score</button></div>
+</div>
+<section class="cards" id="cards" aria-live="polite"></section>
+<div class="no-results" id="empty">No questions match this filter. Try another topic.</div>
+<footer class="foot">
+ <span>Built for classroom discussion • Class XII IT (802)</span>
+ <span>Content aligned to the CBSE 2026–27 Unit 1 scope: <a href="https://cbseacademic.nic.in/web_material/Curriculum27/SrSec/802-IT.pdf" target="_blank" rel="noopener">official curriculum PDF</a>.</span>
+</footer>
+</main>
+<script>
+const bank = [
+{level:"easy",topic:"basics",q:"What does SQL stand for?",o:["Structured Query Language","Simple Question Language","Sequential Query Logic","System Quick Language"],a:0,e:"SQL stands for Structured Query Language. It is used to work with relational databases."},
+{level:"easy",topic:"basics",q:"Which of these is a Relational Database Management System (RDBMS)?",o:["HTML","MySQL","CSS","Python"],a:1,e:"MySQL is an RDBMS. HTML and CSS are web technologies; Python is a programming language."},
+{level:"easy",topic:"basics",q:"Which command displays the databases available on a MySQL server?",o:["LIST DATABASES;","SHOW DATABASES;","DISPLAY DATABASE;","VIEW DATABASES;"],a:1,e:"SHOW DATABASES; lists databases that your MySQL account is permitted to see.",sql:"SHOW DATABASES;"},
+{level:"easy",topic:"basics",q:"Which command selects an existing database for use?",o:["OPEN School;","USE School;","SELECT School;","CONNECT School;"],a:1,e:"USE makes the named database the current database for your session.",sql:"USE School;"},
+{level:"easy",topic:"ddl",q:"Which SQL command creates a new database?",o:["MAKE DATABASE","CREATE DATABASE","NEW DATABASE","ADD DATABASE"],a:1,e:"CREATE DATABASE creates a database.",sql:"CREATE DATABASE School;"},
+{level:"easy",topic:"ddl",q:"Which command creates a table?",o:["CREATE TABLE","MAKE TABLE","NEW TABLE","BUILD TABLE"],a:0,e:"CREATE TABLE defines a new table, including its columns and data types.",sql:"CREATE TABLE Student (\\n  Roll_No INT,\\n  Name VARCHAR(30)\\n);"},
+{level:"easy",topic:"ddl",q:"Which command displays the structure of a table?",o:["SHOW Student;","DESC Student;","OPEN Student;","DISPLAY STRUCTURE Student;"],a:1,e:"DESC is short for DESCRIBE. It displays the table's columns, data types and key information.",sql:"DESC Student;"},
+{level:"easy",topic:"ddl",q:"Which data type is generally used to store whole numbers?",o:["DATE","VARCHAR(30)","INT","CHAR(10)"],a:2,e:"INT stores integer values such as 12, 250 or -5."},
+{level:"easy",topic:"ddl",q:"Which data type stores variable-length character strings?",o:["CHAR(n)","VARCHAR(n)","INT","DATE"],a:1,e:"VARCHAR(n) stores text up to a maximum length. CHAR(n) is fixed-length."},
+{level:"easy",topic:"dml",q:"Which command adds a new record to a table?",o:["INSERT INTO","ALTER TABLE","DROP TABLE","DESCRIBE"],a:0,e:"INSERT INTO adds one or more rows to a table.",sql:"INSERT INTO Student (Roll_No, Name)\\nVALUES (1, 'Aarav');"},
+{level:"easy",topic:"dml",q:"Which query displays all columns and rows from Student?",o:["SELECT ALL Student;","SELECT * FROM Student;","SHOW ROWS Student;","DISPLAY * Student;"],a:1,e:"The asterisk (*) represents all columns.",sql:"SELECT * FROM Student;"},
+{level:"easy",topic:"dml",q:"Which clause is used to filter rows based on a condition?",o:["ORDER BY","WHERE","GROUP BY","DISTINCT"],a:1,e:"WHERE returns only the rows that satisfy the given condition.",sql:"SELECT * FROM Student\\nWHERE Marks >= 75;"},
+{level:"medium",topic:"ddl",q:"Which command adds an Age column to an existing Student table?",o:["UPDATE TABLE Student ADD Age INT;","ALTER TABLE Student ADD Age INT;","INSERT COLUMN Age INT;","CREATE COLUMN Age INT;"],a:1,e:"ALTER TABLE changes an existing table's structure.",sql:"ALTER TABLE Student ADD Age INT;"},
+{level:"medium",topic:"ddl",q:"Which command removes a column named Age from Student?",o:["DELETE Age FROM Student;","DROP TABLE Student;","ALTER TABLE Student DROP COLUMN Age;","REMOVE COLUMN Age;"],a:2,e:"ALTER TABLE with DROP COLUMN removes one column while keeping the rest of the table.",sql:"ALTER TABLE Student DROP COLUMN Age;"},
+{level:"medium",topic:"ddl",q:"Which statement correctly defines Roll_No as the primary key?",o:["Roll_No INT UNIQUE","Roll_No INT PRIMARY KEY","Roll_No INT DEFAULT","Roll_No INT FOREIGN"],a:1,e:"A primary key uniquely identifies each row and cannot contain NULL values.",sql:"CREATE TABLE Student (\\n  Roll_No INT PRIMARY KEY,\\n  Name VARCHAR(30)\\n);"},
+{level:"medium",topic:"dml",q:"Which query displays students in descending order of Marks?",o:["SELECT * FROM Student ORDER BY Marks DESC;","SELECT * FROM Student SORT Marks;","SELECT * FROM Student WHERE Marks DESC;","SELECT * FROM Student ORDER Marks DOWN;"],a:0,e:"ORDER BY sorts the result. DESC means descending; ASC means ascending.",sql:"SELECT * FROM Student\\nORDER BY Marks DESC;"},
+{level:"medium",topic:"dml",q:"Which condition finds names that begin with the letter A?",o:["Name = 'A%'","Name LIKE 'A%'","Name LIKE '%A'","Name IN 'A%'"],a:1,e:"LIKE 'A%' matches strings beginning with A. The percent sign represents zero or more characters.",sql:"SELECT * FROM Student\\nWHERE Name LIKE 'A%';"},
+{level:"medium",topic:"dml",q:"Which condition selects marks from 60 through 80, including both limits?",o:["Marks BETWEEN 60 AND 80","Marks IN 60 TO 80","Marks > 60 OR < 80","Marks LIKE 60 AND 80"],a:0,e:"BETWEEN includes both boundary values.",sql:"SELECT * FROM Student\\nWHERE Marks BETWEEN 60 AND 80;"},
+{level:"medium",topic:"dml",q:"What is the effect of DELETE FROM Student without a WHERE clause?",o:["Deletes only the first row","Deletes all rows but keeps the table structure","Deletes the whole database","Deletes only the table's columns"],a:1,e:"DELETE without WHERE removes every row from the table. The table itself remains." ,sql:"DELETE FROM Student;"},
+{level:"medium",topic:"group",q:"Which aggregate function calculates the average of a numeric column?",o:["SUM()","COUNT()","AVG()","MAX()"],a:2,e:"AVG() calculates the average of non-NULL numeric values.",sql:"SELECT AVG(Marks) FROM Student;"},
+{level:"medium",topic:"group",q:"Which clause groups rows with the same value in a column?",o:["GROUP BY","ORDER BY","WHERE","LIMIT"],a:0,e:"GROUP BY forms groups, often used with aggregate functions.",sql:"SELECT Class, COUNT(*)\\nFROM Student\\nGROUP BY Class;"},
+{level:"medium",topic:"group",q:"Which clause filters groups after GROUP BY?",o:["WHERE","HAVING","ORDER BY","DISTINCT"],a:1,e:"HAVING filters grouped results. WHERE filters individual rows before grouping.",sql:"SELECT Class, COUNT(*)\\nFROM Student\\nGROUP BY Class\\nHAVING COUNT(*) > 2;"},
+{level:"medium",topic:"group",q:"Which function returns the highest value in a column?",o:["MIN()","TOP()","MAX()","HIGH()"],a:2,e:"MAX() returns the largest value in the selected expression.",sql:"SELECT MAX(Marks) FROM Student;"},
+{level:"medium",topic:"dml",q:"Which keyword removes duplicate values from a query result?",o:["UNIQUE","DISTINCT","DIFFERENT","ONLY"],a:1,e:"DISTINCT returns only unique rows in the selected result. It does not delete records from the table.",sql:"SELECT DISTINCT Class FROM Student;"},
+{level:"hard",topic:"multi",q:"A Teacher table contains Dept_No, which refers to Dept_ID in the Department table. Dept_No is a:",o:["Primary key of Department","Foreign key in Teacher","Candidate key of both tables","Domain"],a:1,e:"A foreign key in the child table refers to a candidate or primary key in the parent table."},
+{level:"hard",topic:"multi",q:"Which query displays each teacher's name along with the department name from Teacher and Department tables?",o:["SELECT Name FROM Teacher, Department;","SELECT Teacher.Name, Department.Dept_Name FROM Teacher INNER JOIN Department ON Teacher.Dept_No = Department.Dept_ID;","JOIN Teacher WITH Department;","SELECT * WHERE Teacher = Department;"],a:1,e:"An INNER JOIN combines matching rows from both tables using the related key columns.",sql:"SELECT Teacher.Name, Department.Dept_Name\\nFROM Teacher\\nINNER JOIN Department\\nON Teacher.Dept_No = Department.Dept_ID;"},
+{level:"hard",topic:"multi",q:"Which query returns every department, including departments that currently have no teachers?",o:["INNER JOIN","LEFT JOIN with Department on the left","CROSS JOIN only","A WHERE clause"],a:1,e:"A LEFT JOIN keeps all rows from the left table and matching rows from the right table. Non-matching right-side values appear as NULL.",sql:"SELECT Department.Dept_Name, Teacher.Name\\nFROM Department\\nLEFT JOIN Teacher\\nON Department.Dept_ID = Teacher.Dept_No;"},
+{level:"hard",topic:"multi",q:"In a parent-child relationship, which table should normally be populated first when inserting related records?",o:["Child table first","Parent table first","Either table; order never matters","Neither table"],a:1,e:"Insert the referenced parent row first so the child row's foreign-key value has a matching key."},
+{level:"hard",topic:"multi",q:"A foreign key in Teacher references Dept_ID in Department. What must be true before inserting a Teacher row with Dept_No = 5?",o:["Teacher must already contain 5 rows","Department must contain Dept_ID = 5","Dept_ID must be VARCHAR","The foreign key must be deleted"],a:1,e:"The foreign-key value must match an existing referenced primary or unique key in the parent table, unless the foreign key allows NULL and NULL is inserted."},
+{level:"hard",topic:"group",q:"Which query counts the number of teachers in each department?",o:["SELECT Dept_No, COUNT(*) FROM Teacher GROUP BY Dept_No;","SELECT COUNT(Dept_No) FROM Teacher ORDER BY Dept_No;","SELECT Dept_No FROM Teacher HAVING COUNT(*);","COUNT BY Dept_No FROM Teacher;"],a:0,e:"GROUP BY creates one group per department number; COUNT(*) counts rows in each group.",sql:"SELECT Dept_No, COUNT(*)\\nFROM Teacher\\nGROUP BY Dept_No;"},
+{level:"hard",topic:"group",q:"Which query shows only departments having more than 3 teachers?",o:["WHERE COUNT(*) > 3","GROUP BY Dept_No > 3","GROUP BY Dept_No HAVING COUNT(*) > 3","ORDER BY COUNT(*) > 3"],a:2,e:"HAVING applies a condition to aggregate results after grouping.",sql:"SELECT Dept_No, COUNT(*)\\nFROM Teacher\\nGROUP BY Dept_No\\nHAVING COUNT(*) > 3;"},
+{level:"hard",topic:"ddl",q:"Which statement correctly adds a foreign-key constraint to Teacher referencing Department(Dept_ID)?",o:["ALTER TABLE Teacher ADD CONSTRAINT fk_dept FOREIGN KEY (Dept_No) REFERENCES Department(Dept_ID);","ADD FOREIGN Teacher.Dept_No TO Department.Dept_ID;","UPDATE Teacher SET FOREIGN KEY Dept_No;","CREATE KEY fk_dept IN Teacher;"],a:0,e:"ALTER TABLE adds a constraint to an existing table. The referenced column must be indexed as a primary or unique key, and compatible in type.",sql:"ALTER TABLE Teacher\\nADD CONSTRAINT fk_dept\\nFOREIGN KEY (Dept_No)\\nREFERENCES Department(Dept_ID);"},
+{level:"hard",topic:"dml",q:"You want to increase Marks by 5 for students in Class XII only. Which query is correct?",o:["UPDATE Student SET Marks = Marks + 5;","UPDATE Student SET Marks = Marks + 5 WHERE Class = 'XII';","ALTER Student Marks + 5;","UPDATE Marks + 5 FROM Student;"],a:1,e:"UPDATE changes existing rows. The WHERE clause limits the update to Class XII.",sql:"UPDATE Student\\nSET Marks = Marks + 5\\nWHERE Class = 'XII';"},
+{level:"hard",topic:"dml",q:"Which statement removes only the student whose Roll_No is 12?",o:["DROP Student WHERE Roll_No = 12;","DELETE FROM Student WHERE Roll_No = 12;","REMOVE ROW Student 12;","ALTER TABLE Student DELETE 12;"],a:1,e:"DELETE FROM removes rows that match the WHERE condition. DROP TABLE would remove the whole table.",sql:"DELETE FROM Student\\nWHERE Roll_No = 12;"},
+{level:"hard",topic:"group",q:"Which query displays the total marks for each class, from highest total to lowest?",o:["SELECT Class, SUM(Marks) FROM Student GROUP BY Class ORDER BY SUM(Marks) DESC;","SELECT Class, SUM(Marks) FROM Student ORDER BY Class;","SELECT SUM(Marks) GROUP Student;","SELECT Class FROM Student HAVING SUM(Marks) DESC;"],a:0,e:"GROUP BY calculates a sum for each class. ORDER BY then sorts those grouped totals in descending order.",sql:"SELECT Class, SUM(Marks)\\nFROM Student\\nGROUP BY Class\\nORDER BY SUM(Marks) DESC;"},
+{level:"hard",topic:"ddl",q:"Which statement deletes a database named School, including its tables and data?",o:["DELETE School;","DROP DATABASE School;","REMOVE DATABASE School;","DROP TABLE School;"],a:1,e:"DROP DATABASE permanently removes the database and its objects. Use it carefully.",sql:"DROP DATABASE School;"}
+];
+
+const topicNames={all:"All topics",basics:"SQL basics",ddl:"DDL & tables",dml:"DML & queries",group:"Functions & grouping",multi:"Multiple tables"};
+let level="easy", topic="all", selected={}, checked={}, revealed={}, score=0, answered=new Set(), order=bank.map((_,i)=>i);
+const $=id=>document.getElementById(id);
+function filtered(){return order.filter(i=>(level==="all"||bank[i].level===level)&&(topic==="all"||bank[i].topic===topic));}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(){
+ const ids=filtered(), root=$("cards"); root.innerHTML=""; $("empty").style.display=ids.length?"none":"block";
+ ids.forEach((id,visibleIndex)=>{
+  const q=bank[id], card=document.createElement("article");card.className="card";card.dataset.id=id;
+  const isRevealed=!!revealed[id], isChecked=!!checked[id];
+  card.innerHTML=`<div class="card-top"><span class="qnum">QUESTION ${String(id+1).padStart(2,"0")}</span><div class="badges"><span class="badge ${q.level}">${q.level.toUpperCase()}</span><span class="badge">${esc(topicNames[q.topic])}</span></div></div>
+  <p class="question">${esc(q.q)}</p>
+  <div class="opts">${q.o.map((v,j)=>`<button class="opt ${selected[id]===j?"selected":""} ${isChecked&&j===q.a?"correct":isChecked&&selected[id]===j&&j!==q.a?"wrong":""}" data-choice="${j}" ${isChecked?"disabled":""}><span class="letter">${"ABCD"[j]}.</span><span>${esc(v)}</span></button>`).join("")}</div>
+  <div class="card-actions"><button class="mini check" ${selected[id]===undefined||isChecked?"disabled":""}>✓ Check my answer</button><button class="mini reveal">${isRevealed?"Hide explanation":"Show answer + explanation"}</button></div>
+  <div class="feedback ${isRevealed||isChecked?"show":""}">
+   ${isChecked?`<div class="answerline">${selected[id]===q.a?"🎉 Correct! +10 points":"Not quite — correct answer: "+ "ABCD"[q.a]+". "+esc(q.o[q.a])}</div>`:""}
+   ${isRevealed?`<div class="answerline">✓ Correct answer: ${"ABCD"[q.a]}. ${esc(q.o[q.a])}</div>`:""}
+   ${(isRevealed||isChecked)?`<div class="explain">${esc(q.e)}</div>${q.sql?`<code class="sql">${esc(q.sql.replace(/\\n/g,"\n"))}</code>`:""}`:""}
+  </div>`;
+  root.appendChild(card);
+  card.querySelectorAll(".opt").forEach(btn=>btn.addEventListener("click",()=>{if(checked[id])return;selected[id]=Number(btn.dataset.choice);render();}));
+  card.querySelector(".check").addEventListener("click",()=>{if(selected[id]===undefined||checked[id])return;checked[id]=true;answered.add(id);if(selected[id]===q.a)score+=10;render();});
+  card.querySelector(".reveal").addEventListener("click",()=>{revealed[id]=!revealed[id];render();});
+ });
+ updateStats(ids);
+}
+function updateStats(ids=filtered()){
+ const done=ids.filter(i=>checked[i]).length;
+ $("progressText").textContent=`${done} / ${ids.length} answered`;
+ $("progressBar").style.width=ids.length?`${done/ids.length*100}%`:"0%";
+ $("scoreStat").textContent=score;
+ $("doneStat").textContent=answered.size;
+}
+document.querySelectorAll("[data-level]").forEach(b=>b.addEventListener("click",()=>{level=b.dataset.level;document.querySelectorAll("[data-level]").forEach(x=>x.classList.toggle("active",x===b));render();}));
+document.querySelectorAll("[data-topic]").forEach(b=>b.addEventListener("click",()=>{topic=b.dataset.topic;document.querySelectorAll(".topic").forEach(x=>x.classList.toggle("active",x===b));render();}));
+$("revealVisible").addEventListener("click",()=>{filtered().forEach(i=>revealed[i]=true);render();});
+$("hideVisible").addEventListener("click",()=>{filtered().forEach(i=>revealed[i]=false);render();});
+$("shuffle").addEventListener("click",()=>{const visible=filtered();for(let i=visible.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[visible[i],visible[j]]=[visible[j],visible[i]];}let it=visible[Symbol.iterator]();order=order.map(i=>{if((level==="all"||bank[i].level===level)&&(topic==="all"||bank[i].topic===topic)){const n=it.next();return n.value;}return i;});render();});
+$("reset").addEventListener("click",()=>{score=0;selected={};checked={};revealed={};answered.clear();order=bank.map((_,i)=>i);render();});
+$("totalStat").textContent=bank.length;
+render();
+</script>
+</body></html>
